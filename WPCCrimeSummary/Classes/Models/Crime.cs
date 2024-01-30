@@ -8,26 +8,26 @@ namespace Classes.Models
 {
     public class Crime
     {
-        public string Category { get; }
-        public string LocationType { get; }
-        public Location Location { get; }
-        public string Context { get; }
-        public string OutcomeStatus { get; }
-        public string PersistentID { get; }
-        public string ID { get; }
-        public string LocationSubtype { get; }
-        public string Month { get; }
+        public string Category { get; set; }
+        public string Location_type { get; set; }
+        public Location Location { get; set; }
+        public string Context { get; set; }
+        public OutcomeStatus Outcome_status { get; set; }
+        public string Persistent_id { get; set; }
+        public string ID { get; set; }
+        public string Location_subtype { get; set; }
+        public string Month { get; set; }
 
-        public Crime(string category, string locationType, Location location, string context, string outcomeStatus, string persistentID, string iD, string locationSubtype, string month)
+        public Crime(string category, string locationType, Location location, string context, OutcomeStatus outcomeStatus, string persistentID, string iD, string locationSubtype, string month)
         {
             Category = category;
-            LocationType = locationType;
+            Location_type = locationType;
             Location = location;
             Context = context;
-            OutcomeStatus = outcomeStatus;
-            PersistentID = persistentID;
+            Outcome_status = outcomeStatus;
+            Persistent_id = persistentID;
             ID = iD;
-            LocationSubtype = locationSubtype;
+            Location_subtype = locationSubtype;
             Month = month;
         }
     }
