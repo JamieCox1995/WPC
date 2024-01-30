@@ -12,6 +12,8 @@ namespace Classes.Models
 {
     public class CrimeList
     {
+        // we probably dont need this as we are technically storing the list twice, once as a contiguous list, and one thats broken down into categories. If performance ever becomes an issue,
+        // we can remove this.
         public List<Crime> Crimes { get; }
 
         public Dictionary<string, List<Crime>> CrimeCategorySummary { get; }
@@ -24,14 +26,19 @@ namespace Classes.Models
 
         public void AddCrimes(List<Crime> _Crimes)
         {
+            // clearing preexisting categories
             CrimeCategorySummary.Clear();
 
+            // if there are any crimes
             if(_Crimes.Count > 0)
             {
+                // add list of all crimes
                 Crimes.AddRange(_Crimes);
 
-                var grp = Crimes.GroupBy(i => i.Category);
+                // get all of the unique groups of crimes by category
+                var grp = Crimes.GroupBy(crime => crime.Category);
 
+                // add them to the dictionary.
                 foreach(var cat in grp)
                 {
                     CrimeCategorySummary.Add(cat.Key, cat.ToList());
@@ -43,11 +50,15 @@ namespace Classes.Models
         {
             CrimeList crimeList = new CrimeList();
 
+            // creating an API Client so that we can call a RESTful API to retrieve the data we want.
             APIClient client = new APIClient();
+            // call get method
             string s = client.GetResponse("https://data.police.uk/api/crimes-street", $"all-crime?lat={_Latitude}&lng={_Longtitude}&date={_Date}");
 
+            // convert the response to a list of custom objects.
             List<Crime> crimes = JsonConvert.DeserializeObject<List<Crime>>(s);
 
+            // if there are no crimes, (highly unlikely) we want to not try to add them to the crimelist.
             if(crimes != null)
             {
                 crimeList.AddCrimes(crimes);

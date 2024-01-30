@@ -10,7 +10,5 @@ namespace Classes.Views
     public interface ICrimeView
     {
         public void UpdateCrimeList(CrimeList _CrimeList);
-
-        public void ClearList();
     }
 }
