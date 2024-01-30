@@ -51,7 +51,9 @@ namespace WPCCrimeSummary
             foreach(KeyValuePair<string, List<Crime>> kvp in _list.CrimeCategorySummary)
             {
                 lvSummary.Items.Add(new ListViewItem($"{kvp.Key} ({kvp.Value.Count} Crimes)"));
-            }          
+            }
+
+            gbCategorySummary.Text = $"Category Summary ({_list.Crimes.Count} Total Crimes)";
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
