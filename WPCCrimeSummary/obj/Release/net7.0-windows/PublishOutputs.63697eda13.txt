@@ -1,0 +1,6 @@
+D:\Unity Projects\WPC\WPCCrimeSummary\bin\Release\net7.0-windows\publish\WPCCrimeSummary.exe
+D:\Unity Projects\WPC\WPCCrimeSummary\bin\Release\net7.0-windows\publish\WPCCrimeSummary.dll
+D:\Unity Projects\WPC\WPCCrimeSummary\bin\Release\net7.0-windows\publish\WPCCrimeSummary.deps.json
+D:\Unity Projects\WPC\WPCCrimeSummary\bin\Release\net7.0-windows\publish\WPCCrimeSummary.runtimeconfig.json
+D:\Unity Projects\WPC\WPCCrimeSummary\bin\Release\net7.0-windows\publish\WPCCrimeSummary.pdb
+D:\Unity Projects\WPC\WPCCrimeSummary\bin\Release\net7.0-windows\publish\Newtonsoft.Json.dll
