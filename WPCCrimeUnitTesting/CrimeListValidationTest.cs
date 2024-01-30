@@ -52,6 +52,7 @@ namespace WPCCrimeUnitTesting
         [InlineData("asdg")]
         [InlineData("2025-01")]
         [InlineData("2023-13")]
+        [InlineData("2023-12")]     // No data yet
         [InlineData("2022-12")]
         [InlineData("2024-01")]
         public void Test_DateValidation_Failures(string _Value)
@@ -60,7 +61,7 @@ namespace WPCCrimeUnitTesting
         }
 
         [Theory]
-        [InlineData("2023-12")]
+        [InlineData("2023-11")]
         [InlineData("2023-02")]
         [InlineData("2023-07")]
         public void Test_DateValidation_Successes(string _Value)

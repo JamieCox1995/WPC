@@ -67,6 +67,18 @@ namespace Classes.Models
             return crimeList;
         }
 
+        public static DateTime ReadLatestCrimeData()
+        {
+            // create an api client to call a GET request
+            APIClient client = new APIClient();
+            // call get method
+            string s = client.GetResponse("https://data.police.uk/api/", $"crime-last-updated");
+
+            LatestCrimeData latestCrimeData = JsonConvert.DeserializeObject<LatestCrimeData>(s);
+
+            return DateTime.Parse(latestCrimeData.Date);
+        }
+
         #region Validation
         public static bool IsLatitudeValid(string _Latitude, out string _Message)
         {
@@ -149,33 +161,16 @@ namespace Classes.Models
             DateTime yearAgo = DateTime.Now.AddYears(-1);
             DateTime now = DateTime.Now;
 
+            // Getting the latest Crime Data Date
+            DateTime latest = ReadLatestCrimeData();
+
             if (string.IsNullOrEmpty(_Date))
             {
                 _Message = "Please enter a date in the format: \"yyyy-MM\".";
                 return false;
             }
-
-            string[] dateParts = _Date.Split("-");
-            string day = now.Day.ToString();
-
-            if (int.TryParse(dateParts[0], out int res)) 
-            {
-            
-                if (int.Parse(dateParts[0]) % 400 != 0)
-                {
-                    if (dateParts[1] == "02")
-                    {
-                        if (now.Day > 28)
-                        {
-                            dateParts[1] = "03";
-                            day = "01";
-                        }
-                    }
-                }
-            }
-
-            // Now that we know the string is not empty, append todays day of month to the end and try to convert to datetime in the format "yyyy-MM-dd"
-            string date = $"{_Date}-{day}";
+            // Now that we know the string is not empty, append a day of month to the end and try to convert to datetime in the format "yyyy-MM-dd"
+            string date = $"{_Date}-20";
 
             if(DateTime.TryParse(date, out DateTime result))
             {
@@ -187,11 +182,10 @@ namespace Classes.Models
                 }
 
                 // if it is within the last month
-                string thisMonth = now.ToString("yyyy-MM");
 
-                if(thisMonth == _Date)
+                if(result > latest)
                 {
-                    _Message = "Cannot retrieve crimes for this month.";
+                    _Message = "Cannot retrieve crimes, data has not been uploaded yet.";
                     return false;
                 }
 
